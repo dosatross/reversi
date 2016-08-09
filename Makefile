@@ -1,28 +1,31 @@
+#compiler and flags
 CC=gcc
-CFLAGS=-ansi -pedantic -Werror -c
+CFLAGS=-ansi -pedantic -Werror
 
-all: reversi
+#directories
+SDIR=src
+ODIR=obj
+BDIR=bin
 
-reversi: reversi.o game.o gameboard.o player.o scoreboard.o utility.o
-	$(CC)  reversi.o game.o gameboard.o player.o scoreboard.o utility.o -o reversi
+#program name
+BNAME=reversi
 
-reversi.o: reversi.c
-	$(CC) $(CFLAGS) reversi.c
+#whitepace separated source files
+SOURCES=$(wildcard $(SDIR)/*.c)
+#whitepace separated object files
+OBJECTS=$(patsubst $(SDIR)/%.c,$(ODIR)/%.o,$(SOURCES))
+EXECUTABLE=$(BDIR)/$(BNAME)
 
-game.o: game.c
-	$(CC) $(CFLAGS) game.c
+all: installdirs $(EXECUTABLE)
 
-gameboard.o: gameboard.c
-	$(CC) $(CFLAGS) gameboard.c
+#compile object to binary
+$(EXECUTABLE):  $(OBJECTS)
+	$(CC) $(CFLAGS) $(OBJECTS) -o $@
 
-player.o: player.c
-	$(CC) $(CFLAGS) player.c
+#compile source to object
+$(OBJECTS): $(ODIR)/%.o : $(SDIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-scoreboard.o: scoreboard.c
-	$(CC) $(CFLAGS) scoreboard.c
-
-utility.o: utility.c
-	$(CC) $(CFLAGS) utility.c
-
-clean:
-	rm -rf *o reversi
+installdirs:
+	@mkdir -p $(BDIR)
+	@mkdir -p $(ODIR)
