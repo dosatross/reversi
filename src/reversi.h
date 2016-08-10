@@ -15,8 +15,7 @@
 
 #ifndef REVERSI_H
 #define REVERSI_H
-#define BUFFER_SIZE 10
-#define FGETS_EXTRA_SPACES 2
+#define MENU_DIVIDER_LENGTH 20
 
 int get_option();
 void parse_option(int);

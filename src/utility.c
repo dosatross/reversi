@@ -56,7 +56,12 @@ void check_numeric(char* buffer)
 }
 
 
-void display_menu_divider()
+void display_divider(char element,int length)
 {
-  printf("-----------------------\n");
+	int i;
+	for (i = 0;i<length;i++)
+	{
+		printf("%c",element);
+	}
+	printf("\n");
 }

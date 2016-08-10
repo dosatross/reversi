@@ -13,7 +13,7 @@
 #define NEWLINE '\n'
 
 void read_rest_of_line(void);
-void display_menu_divider();
+void display_divider(char element,int length);
 void check_buffer_overflow(char*);
 void check_numeric(char*);
 void remove_newline(char*);

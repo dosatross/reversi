@@ -74,7 +74,7 @@ void parse_option(int option)
 
 void display_main_menu()
 {
-  display_menu_divider();
+  display_divider('-',MENU_DIVIDER_LENGTH);
   display_main_menu_options();
 }
 
@@ -85,7 +85,7 @@ void display_menu_title()
 
 void display_invalid_input_message()
 {
-  display_menu_divider();
+  display_divider('-',MENU_DIVIDER_LENGTH);
   printf("Error: Invalid Option\n");
 }
 
@@ -105,7 +105,7 @@ void display_high_scores()
 
 void display_high_score_header()
 {
-  display_menu_divider();
+  display_divider('-',MENU_DIVIDER_LENGTH);
   printf("Name\t\t| Score\n");
-  display_menu_divider();
+  display_divider('-',MENU_DIVIDER_LENGTH);
 }

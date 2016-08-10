@@ -24,11 +24,11 @@ enum direction
     NORTH, SOUTH, EAST, WEST, NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST
 };
 
-struct coordinate
+typedef struct coordinate
 {
   unsigned X;
   unsigned Y;
-};
+} Coordinate;
 
 /* how much space is required to display a column on the game board ? */
 #define COLUMN_WIDTH 4
@@ -37,10 +37,14 @@ struct coordinate
 /* how wide is the game board ? */
 #define BOARD_WIDTH BOARD_HEIGHT
 
+#define BOARD_DIVIDER_LENGTH ((BOARD_WIDTH + 1)*COLUMN_WIDTH)
+
 /* type definition of a game_board. It is just a 2-dimensional array */
 typedef enum cell game_board[BOARD_HEIGHT][BOARD_WIDTH];
 
 void init_game_board(game_board board);
 void display_board(game_board board, struct player * first,
                    struct player * second);
+void display_board_body(game_board);
+void display_board_column_index();
 #endif /* ifndef GAMEBOARD_H */
