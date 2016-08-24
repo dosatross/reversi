@@ -29,10 +29,38 @@ void init_game_board(game_board board)
 			board[i][j] = BLANK;
 		}
 	}
+	/*initial tokens*/
 	board[3][3] = RED;
 	board[4][4] = RED;
 	board[3][4] = BLUE;
 	board[4][3] = BLUE;
+}
+
+void init_cardinal_directions()
+{
+	cd.s.east.X = POSITIVE_DIRECTION;
+	cd.s.east.Y = ZERO_DIRECTION;
+
+	cd.s.west.X = NEGATIVE_DIRECTION;
+	cd.s.west.Y = ZERO_DIRECTION;
+
+	cd.s.north.X = ZERO_DIRECTION;
+	cd.s.north.Y = POSITIVE_DIRECTION;
+
+	cd.s.south.X = ZERO_DIRECTION;
+	cd.s.south.Y = NEGATIVE_DIRECTION;
+
+	cd.s.north_east.X = POSITIVE_DIRECTION;
+	cd.s.north_east.Y = POSITIVE_DIRECTION;
+
+	cd.s.north_west.X = NEGATIVE_DIRECTION;
+	cd.s.north_west.Y = POSITIVE_DIRECTION;
+
+	cd.s.south_east.X = POSITIVE_DIRECTION;
+	cd.s.south_east.Y = NEGATIVE_DIRECTION;
+
+	cd.s.south_west.X = NEGATIVE_DIRECTION;
+	cd.s.south_west.Y = NEGATIVE_DIRECTION;
 }
 
 /**

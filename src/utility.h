@@ -15,6 +15,6 @@
 void read_rest_of_line(void);
 void display_divider(char element,int length);
 void check_buffer_overflow(char*);
-void check_numeric(char*);
+BOOLEAN check_numeric(char*);
 void remove_newline(char*);
 #endif /* ifndef UTILITY_H */

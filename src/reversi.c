@@ -35,7 +35,7 @@ int get_option()
   fgets(buffer,BUFFER_SIZE + FGETS_EXTRA_SPACES,stdin);
   check_buffer_overflow(buffer);
   remove_newline(buffer); /*remove newline created by fgets*/
-  check_numeric(buffer); /*checks input is numeric*/
+  check_numeric(buffer);
   return strtol(buffer, NULL, 0); /* convert string to int and return*/
 }
 void parse_option(int option)
@@ -85,7 +85,6 @@ void display_menu_title()
 
 void display_invalid_input_message()
 {
-  display_divider('-',MENU_DIVIDER_LENGTH);
   printf("Error: Invalid Option\n");
 }
 

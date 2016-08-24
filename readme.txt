@@ -11,7 +11,3 @@
  This file is for you to provide any extra information that your
  markers may find useful. For example. Bugs, inconsistencies, incomplete
  functionality, reasoning for design choices etc.
-
-quesitons
-1/ if the tokens are being intialised in the init_first_player function why is it being passed into the function
-2/ are the players initialised before or after play_game is called; they are in the 

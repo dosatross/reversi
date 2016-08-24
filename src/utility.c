@@ -43,16 +43,17 @@ void remove_newline(char* buffer)
 }
 
 /*checks if is n*/
-void check_numeric(char* buffer)
+BOOLEAN check_numeric(char* buffer)
 {
   char * end;
   strtol(buffer, &end, 0);
   if(*end)
   {
-      printf("Error: data entered was not numeric.\n\n");
+      printf("Error: data entered was not numeric.\n");
       end = NULL;
-      return EXIT_FAILURE;
+      return FALSE;
   }
+  return TRUE;
 }
 
 

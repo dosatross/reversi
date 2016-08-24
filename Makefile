@@ -1,6 +1,6 @@
 #compiler and flags
 CC=gcc
-CFLAGS=-ansi -pedantic -Werror
+CFLAGS=-g -ansi -pedantic -Werror
 
 #directories
 SDIR=src
@@ -14,7 +14,7 @@ BNAME=reversi
 SOURCES=$(wildcard $(SDIR)/*.c)
 #whitepace separated object files
 OBJECTS=$(patsubst $(SDIR)/%.c,$(ODIR)/%.o,$(SOURCES))
-EXECUTABLE=$(BDIR)/$(BNAME)
+EXECUTABLE=$(BDIR)/$(BNAME).exe
 
 all: installdirs $(EXECUTABLE)
 
@@ -29,3 +29,6 @@ $(OBJECTS): $(ODIR)/%.o : $(SDIR)/%.c
 installdirs:
 	@mkdir -p $(BDIR)
 	@mkdir -p $(ODIR)
+
+clean:
+	-rm $(OBJECTS) $(EXECUTABLE)

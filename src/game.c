@@ -60,6 +60,7 @@ struct player * play_game(PlayerType *first, PlayerType* second)
 	}
 
 	init_game_board(board);
+	init_cardinal_directions(cd);
 	/*main game loop*/
 	while(TRUE)
 	{
@@ -90,7 +91,7 @@ struct player * play_game(PlayerType *first, PlayerType* second)
 			}
 			else
 			{
-				if (is_valid_move(buffer))
+				if (is_valid_move(board,buffer,current->token))
 				{
 					valid_move = TRUE;
 					coordinate = parse_coordinate_buffer(buffer);
@@ -100,10 +101,6 @@ struct player * play_game(PlayerType *first, PlayerType* second)
 					other->score = game_score(board,other->token);
 					swap_players(&current,&other);
 				}
-				else
-				{
-					puts("Error: invalid coordinates.");
-				}
 			}
 		}
 	}
@@ -112,10 +109,12 @@ struct player * play_game(PlayerType *first, PlayerType* second)
 Coordinate parse_coordinate_buffer(char * buffer)
 {
 	char * tok;
+	char buffer_copy[BUFFER_SIZE + FGETS_EXTRA_SPACES];
 	Coordinate coordinate;
 
+	strcpy(buffer_copy,buffer);
 	/*tokenise input*/
-	tok = strtok(buffer, DELIMS);
+	tok = strtok(buffer_copy, DELIMS);
 	coordinate.X = (int) strtol(tok, NULL, 0);
 	tok = strtok(NULL, DELIMS);
 	coordinate.Y = (int) strtol(tok, NULL, 0);
@@ -123,8 +122,19 @@ Coordinate parse_coordinate_buffer(char * buffer)
 	return coordinate;
 }
 
-BOOLEAN is_valid_move(char * buffer)
+BOOLEAN is_valid_move(game_board board,char * buffer,enum cell token)
 {
+	Coordinate coordinate;
+
+	if (check_input(buffer) == FALSE)
+	{
+		return FALSE;
+	}
+	coordinate = parse_coordinate_buffer(buffer);
+	if (get_tokens_to_flip(board,coordinate.Y,coordinate.X,token,0).X == NULL_DIRECTION)
+	{
+		return FALSE;
+	}
 	return TRUE;
 }
 
@@ -136,9 +146,162 @@ BOOLEAN is_valid_move(char * buffer)
  **/
 BOOLEAN apply_move(game_board board, unsigned y, unsigned x,enum cell player_token)
 {
-	enum direction dir;
 	unsigned captured_pieces = 0;
+	unsigned element;
+	unsigned elements_counter;
+	unsigned i;
+	Coordinate tokens_to_flip[MAX_TOKEN_FLIP];
 	board[y-1][x-1] = player_token;
+
+	/*init array to NULL*/
+	for (i = 0; i < MAX_TOKEN_FLIP;i++)
+	{
+		tokens_to_flip[i].X = NULL_DIRECTION;
+		tokens_to_flip[i].Y = NULL_DIRECTION;
+	}
+
+	element = 0;
+	while(TRUE)
+	{
+		if(get_tokens_to_flip(board,y,x,player_token,element).X == NULL_DIRECTION)
+		{
+			break;
+		}
+		tokens_to_flip[element] = get_tokens_to_flip(board,y,x,player_token,element);
+		element++;
+	}
+
+	elements_counter = 0;
+	while(TRUE)
+	{
+		if(tokens_to_flip[elements_counter].X == NULL_DIRECTION && tokens_to_flip[elements_counter].Y == NULL_DIRECTION)
+		{
+			break;
+		}
+		elements_counter++;
+	}
+	for(i = 0;i < elements_counter;i++)
+	{
+		board[tokens_to_flip[i].Y][tokens_to_flip[i].X] = player_token;
+	}
+}
+
+BOOLEAN check_input(char * buffer)
+{
+	char * tok;
+	int coordinate[DIMENSIONS];
+	int numTok = 0;
+	char buffer_copy[BUFFER_SIZE + FGETS_EXTRA_SPACES];
+
+	strcpy(buffer_copy,buffer);
+	tok = strtok(buffer_copy, DELIMS);
+	while(tok!=NULL)
+	{
+		numTok++;
+		if(numTok > DIMENSIONS)
+		{
+			printf("Error: invalid input; too many coordinates\n");
+			return FALSE;
+		}
+		if (check_numeric(tok) == FALSE)
+		{
+			return FALSE;/*returns FALSE if input is not numeric*/
+		}
+		coordinate[numTok - 1] = (int) strtol(tok,NULL, 0);
+		tok = strtok(NULL, DELIMS);
+	}
+	if (is_on_board(coordinate[0]-1,coordinate[1]-1) == FALSE)
+	{
+		printf("Error: invalid input; coordinate out of bounds\n");
+		return FALSE;
+	}
+	return TRUE;
+}
+
+Coordinate get_tokens_to_flip(game_board board,unsigned y,unsigned x,enum cell token,unsigned element)
+{
+	int x_origin;
+	int y_origin;
+	int i;
+	int elements_counter;
+	enum cell other_token;
+	Coordinate* tokens_to_flip = malloc(MAX_TOKEN_FLIP * sizeof(Coordinate));
+
+	/*init array to NULL*/
+	for (i = 0; i < MAX_TOKEN_FLIP;i++)
+	{
+		tokens_to_flip[i].X = NULL_DIRECTION;
+		tokens_to_flip[i].Y = NULL_DIRECTION;
+	}
+
+	if(token==RED)
+	{
+		other_token = BLUE;
+	}
+	else
+	{
+		other_token = RED;
+	}
+
+	x -= 1;
+	y -= 1;
+	x_origin = x;
+	y_origin = y;
+
+	/*for each direction*/
+	for (i=0;i<DIRECTIONS;i++)
+	{
+		x+= cd.a[i].X;
+		y+= cd.a[i].Y;
+		while(board[y][x] == other_token && is_on_board(y,x) == TRUE)
+		{
+			x+= cd.a[i].X;
+			y+= cd.a[i].Y;
+		}
+		if(board[y][x] == token)
+		{
+			while (TRUE)
+			{
+				x -= cd.a[i].X;
+				y -= cd.a[i].Y;
+				if (x == x_origin && y == y_origin)
+				{
+					break;
+				}
+				/*append to tiles to flip*/
+				elements_counter = 0;
+				while(TRUE)
+				{
+					if(tokens_to_flip[elements_counter].X == NULL_DIRECTION && tokens_to_flip[elements_counter].Y == NULL_DIRECTION)
+					{
+						break;
+					}
+					elements_counter++;
+				}
+				tokens_to_flip[elements_counter].X = x;
+				tokens_to_flip[elements_counter].Y = y;
+			}
+		}
+		else
+		{
+			x = x_origin;
+			y = y_origin;
+		}
+	}
+	return tokens_to_flip[element];
+}
+
+
+BOOLEAN is_on_board(int y, int x)
+{
+	if (y > BOARD_HEIGHT || y <= 0 || x > BOARD_WIDTH || x <= 0)
+	{
+		return FALSE;
+	}
+	else
+	{
+		return TRUE;
+	}
 }
 
 
