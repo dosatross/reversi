@@ -20,7 +20,7 @@
 #define DELIMS ","
 
 struct player * play_game(PlayerType * first, PlayerType * second);
-BOOLEAN apply_move(game_board board, unsigned y, unsigned x,enum cell player_token);
+BOOLEAN apply_move(game_board board, int y, int x,enum cell player_token);
 unsigned game_score(game_board board, enum cell player_token);
 void swap_players(struct player ** first, struct player ** second);
 void display_scene(game_board board, PlayerType *first, PlayerType* second,PlayerType* current);
@@ -28,7 +28,7 @@ Coordinate parse_coordinate_buffer(char *);
 BOOLEAN is_valid_move(game_board,char *,enum cell token);
 void display_coordinate_prompt();
 BOOLEAN check_input(char * buffer);
-Coordinate get_tokens_to_flip(game_board board,unsigned y,unsigned x,enum cell token,unsigned element);
+Coordinate get_tokens_to_flip(game_board board,int y,int x,enum cell token,unsigned element);
 BOOLEAN is_on_board(int, int);
 
 #endif /* ifndef GAME_H */

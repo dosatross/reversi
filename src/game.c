@@ -133,6 +133,7 @@ BOOLEAN is_valid_move(game_board board,char * buffer,enum cell token)
 	coordinate = parse_coordinate_buffer(buffer);
 	if (get_tokens_to_flip(board,coordinate.Y,coordinate.X,token,0).X == NULL_DIRECTION)
 	{
+		printf("Error: invalid move\n");
 		return FALSE;
 	}
 	return TRUE;
@@ -144,7 +145,7 @@ BOOLEAN is_valid_move(game_board board,char * buffer,enum cell token)
  * whether there are any pieces that can be captured. If there are no pieces
  * that can be captured in any direction, it is an invalid move.
  **/
-BOOLEAN apply_move(game_board board, unsigned y, unsigned x,enum cell player_token)
+BOOLEAN apply_move(game_board board, int y, int x,enum cell player_token)
 {
 	unsigned captured_pieces = 0;
 	unsigned element;
@@ -210,7 +211,7 @@ BOOLEAN check_input(char * buffer)
 		coordinate[numTok - 1] = (int) strtol(tok,NULL, 0);
 		tok = strtok(NULL, DELIMS);
 	}
-	if (is_on_board(coordinate[0]-1,coordinate[1]-1) == FALSE)
+	if (is_on_board(coordinate[0],coordinate[1]) == FALSE)
 	{
 		printf("Error: invalid input; coordinate out of bounds\n");
 		return FALSE;
@@ -218,7 +219,7 @@ BOOLEAN check_input(char * buffer)
 	return TRUE;
 }
 
-Coordinate get_tokens_to_flip(game_board board,unsigned y,unsigned x,enum cell token,unsigned element)
+Coordinate get_tokens_to_flip(game_board board,int y,int x,enum cell token,unsigned element)
 {
 	int x_origin;
 	int y_origin;
@@ -253,7 +254,7 @@ Coordinate get_tokens_to_flip(game_board board,unsigned y,unsigned x,enum cell t
 	{
 		x+= cd.a[i].X;
 		y+= cd.a[i].Y;
-		while(board[y][x] == other_token && is_on_board(y,x) == TRUE)
+		while(board[y][x] == other_token && is_on_board(y + 1,x + 1) == TRUE)
 		{
 			x+= cd.a[i].X;
 			y+= cd.a[i].Y;
@@ -290,7 +291,6 @@ Coordinate get_tokens_to_flip(game_board board,unsigned y,unsigned x,enum cell t
 	}
 	return tokens_to_flip[element];
 }
-
 
 BOOLEAN is_on_board(int y, int x)
 {

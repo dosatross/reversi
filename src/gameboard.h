@@ -37,14 +37,14 @@ struct player;
 
 typedef struct direction
 {
-  unsigned X;
-  unsigned Y;
+  int X;
+  int Y;
 } Direction;
 
 typedef struct coordinate
 {
-  unsigned X;
-  unsigned Y;
+  int X;
+  int Y;
 } Coordinate;
 
 union cardinal_direction
