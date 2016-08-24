@@ -23,7 +23,15 @@ int main(void)
   while(TRUE)
   {
     display_main_menu();
-    parse_option(get_option());
+    winner = parse_option(get_option(),scoreboard);
+    if(winner == NULL)
+    {
+      continue;
+    }
+    else
+    {
+      add_to_scoreboard(scoreboard,winner);
+    }
   }
   return EXIT_SUCCESS;
 }
@@ -38,7 +46,8 @@ int get_option()
   check_numeric(buffer);
   return strtol(buffer, NULL, 0); /* convert string to int and return*/
 }
-void parse_option(int option)
+
+PlayerType * parse_option(int option,score scoreboard[MAX_SCORES])
 {
   switch (option)
   {
@@ -46,15 +55,21 @@ void parse_option(int option)
     {
       PlayerType first;
       PlayerType second;
-      if(play_game(&first,&second) == NULL)
+      PlayerType * winner =  NULL;
+      winner = play_game(&first,&second);
+      if(winner == NULL)
       {
-        break;
+        return NULL;
       }
-      break;
+      else
+      {
+        return winner;
+      }
     }
     case 2:
     {
-      display_high_scores();
+      display_high_score_header();
+      display_scores(scoreboard);
       break;
     }
     case 3:
@@ -67,6 +82,7 @@ void parse_option(int option)
       break;
     }
   }
+  return NULL;
 }
 
 
@@ -95,11 +111,6 @@ void display_main_menu_options()
   printf("3. Quit the program\n");
   printf("\n");
   printf("Please enter your choice: ");
-}
-
-void display_high_scores()
-{
-  display_high_score_header();
 }
 
 void display_high_score_header()

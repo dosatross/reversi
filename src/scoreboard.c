@@ -31,7 +31,23 @@ void init_scoreboard(score scoreboard[MAX_SCORES])
  **/
 BOOLEAN add_to_scoreboard(score scoreboard[MAX_SCORES], struct player * winner)
 {
-
+  int i;
+  int j;
+  for(i = 0;i < MAX_SCORES;i++)
+  {
+    if(scoreboard[i].score <= winner->score)
+    {
+      /*shift scores down*/
+      for(j = (MAX_SCORES - 1);j > i;j--)
+      {
+        scoreboard[j].score = scoreboard[j - 1].score;
+        strcpy(scoreboard[j].name,scoreboard[j - 1].name);
+      }
+      scoreboard[i].score = winner->score;
+      strcpy(scoreboard[i].name,winner->name);
+      break;
+    }
+  }
 }
 
 /**
@@ -40,5 +56,12 @@ BOOLEAN add_to_scoreboard(score scoreboard[MAX_SCORES], struct player * winner)
  **/
 void display_scores(score scoreboard[MAX_SCORES])
 {
-
+  int i;
+  for(i = 0;i < MAX_SCORES;i++)
+  {
+    if(scoreboard[i].score != 0)
+    {
+      printf("%s\t\t| %d\n",scoreboard[i].name,scoreboard[i].score);
+    }
+  }
 }
