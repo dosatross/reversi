@@ -1,12 +1,13 @@
 /***********************************************************************
  * COSC1076 - Advanced Programming Techniques
  * Semester 2 2016 Assignment #1
- * Full Name        : EDIT HERE
- * Student Number   : EDIT HERE
- * Course Code      : EDIT HERE
- * Program Code     : EDIT HERE
+ * Full Name        : Hayden Warmington
+ * Student Number   : s3486075
+ * Course Code      : COSC1076
+ * Program Code     : BH094
  * Start up code provided by Paul Miller
  **********************************************************************/
+
 #include <time.h>
 #include "shared.h"
 #include "player.h"
@@ -15,8 +16,6 @@
 
 #ifndef GAME_H
 #define GAME_H
-#define BUFFER_SIZE 10
-#define FGETS_EXTRA_SPACES 2
 #define DELIMS ","
 
 struct player * play_game(PlayerType * first, PlayerType * second);
@@ -24,11 +23,6 @@ BOOLEAN apply_move(game_board board, int y, int x,enum cell player_token);
 unsigned game_score(game_board board, enum cell player_token);
 void swap_players(struct player ** first, struct player ** second);
 void display_scene(game_board board, PlayerType *first, PlayerType* second,PlayerType* current);
-Coordinate parse_coordinate_buffer(char *);
-BOOLEAN is_valid_move(game_board,char *,enum cell token);
-void display_coordinate_prompt();
-BOOLEAN check_input(char * buffer);
-Coordinate get_tokens_to_flip(game_board board,int y,int x,enum cell token,unsigned element);
-BOOLEAN is_on_board(int, int);
+
 
 #endif /* ifndef GAME_H */

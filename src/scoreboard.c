@@ -1,10 +1,10 @@
 /***********************************************************************
  * COSC1076 - Advanced Programming Techniques
  * Semester 2 2016 Assignment #1
- * Full Name        : EDIT HERE
- * Student Number   : EDIT HERE
- * Course Code      : EDIT HERE
- * Program Code     : EDIT HERE
+ * Full Name        : Hayden Warmington
+ * Student Number   : s3486075
+ * Course Code      : COSC1076
+ * Program Code     : BH094
  * Start up code provided by Paul Miller
  **********************************************************************/
 
@@ -48,6 +48,7 @@ BOOLEAN add_to_scoreboard(score scoreboard[MAX_SCORES], struct player * winner)
       break;
     }
   }
+  return TRUE;
 }
 
 /**

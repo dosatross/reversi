@@ -1,6 +1,6 @@
 #compiler and flags
 CC=gcc
-CFLAGS=-g -ansi -pedantic -Werror
+CFLAGS=-g -ansi -pedantic -Wall
 
 #directories
 SDIR=src

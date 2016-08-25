@@ -1,12 +1,13 @@
 /***********************************************************************
  * COSC1076 - Advanced Programming Techniques
  * Semester 2 2016 Assignment #1
- * Full Name        : EDIT HERE
- * Student Number   : EDIT HERE
- * Course Code      : EDIT HERE
- * Program Code     : EDIT HERE
+ * Full Name        : Hayden Warmington
+ * Student Number   : s3486075
+ * Course Code      : COSC1076
+ * Program Code     : BH094
  * Start up code provided by Paul Miller
  **********************************************************************/
+
 #include "shared.h"
 #include "gameboard.h"
 #include "utility.h"
@@ -34,6 +35,13 @@ BOOLEAN initialise_players(PlayerType *first, PlayerType* second);
 BOOLEAN init_first_player(PlayerType * first, enum cell token);
 BOOLEAN init_second_player(PlayerType * second, enum cell token);
 BOOLEAN make_move(PlayerType * player, game_board board);
+
+Coordinate parse_coordinate_buffer(char *);
+BOOLEAN is_valid_move(game_board,char *,enum cell token);
+void display_coordinate_prompt();
+BOOLEAN check_input(char * buffer);
+Coordinate get_tokens_to_flip(game_board board,int y,int x,enum cell token,unsigned element);
+BOOLEAN is_on_board(int, int);
 
 void set_player_name(PlayerType * player);
 void set_player_token(PlayerType * player,enum cell token);

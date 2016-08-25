@@ -1,10 +1,10 @@
 /***********************************************************************
  * COSC1076 - Advanced Programming Techniques
  * Semester 2 2016 Assignment #1
- * Full Name        : EDIT HERE
- * Student Number   : EDIT HERE
- * Course Code      : EDIT HERE
- * Program Code     : EDIT HERE
+ * Full Name        : Hayden Warmington
+ * Student Number   : s3486075
+ * Course Code      : COSC1076
+ * Program Code     : BH094
  * Start up code provided by Paul Miller
  **********************************************************************/
 
@@ -19,8 +19,7 @@
 void read_rest_of_line(void)
 {
     int ch;
-    while(ch = getc(stdin), ch != EOF && ch != NEWLINE)
-        ;
+    while(ch = getc(stdin), ch != EOF && ch != NEWLINE);
     clearerr(stdin);
 }
 
@@ -30,7 +29,6 @@ void check_buffer_overflow(char* buffer)
   {
       printf("Error: buffer overflow\n\n");
       read_rest_of_line();
-      return EXIT_FAILURE;
   }
 }
 

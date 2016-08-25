@@ -4,9 +4,10 @@
  * Full Name        : Hayden Warmington
  * Student Number   : s3486075
  * Course Code      : COSC1076
- * Program Code     : Adv Prog Techniques
+ * Program Code     : BH094
  * Start up code provided by Paul Miller
  **********************************************************************/
+
 #include "shared.h"
 #include "player.h"
 #include "game.h"
