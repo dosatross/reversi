@@ -12,11 +12,5 @@
  markers may find useful. For example. Bugs, inconsistencies, incomplete
  functionality, reasoning for design choices etc.
 
-
-TODO
-refactor
-comment
-update readme file
-
 known bugs:
 sometimes doesn't add score to scoreboard
