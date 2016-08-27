@@ -287,11 +287,6 @@ BOOLEAN initialise_players(PlayerType *first, PlayerType* second)
   return TRUE;
 }
 
-void set_player_name(PlayerType * player)
-{
-  /*TODO*/
-}
-
 void set_player_token(PlayerType * player,enum cell token)
 {
   player->token=token;

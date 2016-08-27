@@ -112,6 +112,7 @@ BOOLEAN apply_move(game_board board, int y, int x,enum cell player_token)
 	{
 		board[tokens_to_flip[i].Y][tokens_to_flip[i].X] = player_token;
 	}
+	return TRUE;
 }
 
 

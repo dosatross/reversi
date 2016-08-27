@@ -89,7 +89,7 @@ void display_board_body(game_board board)
 			{
 				case BLANK:
 				{
-					printf("   |",0);
+					printf("   |");
 					break;
 				}
 				case RED:

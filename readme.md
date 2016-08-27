@@ -16,6 +16,7 @@
 TODO
 refactor
 comment
+update readme file
 
 known bugs:
 sometimes doesn't add score to scoreboard

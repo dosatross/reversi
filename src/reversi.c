@@ -17,7 +17,7 @@
 int main(void)
 {
   score scoreboard[MAX_SCORES];
-  struct player first, second, *winner = NULL;
+  struct player *winner = NULL;
   init_scoreboard(scoreboard);
   display_menu_title();
   while(TRUE)
